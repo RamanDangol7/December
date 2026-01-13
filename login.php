@@ -24,7 +24,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
                 
                 $response=[
                     "status"=>"success",
-                    "message"=>"success"
+                    "message"=>"Login successful"
                 ];
 
                 $check->close();
