@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <div class="loginn">
+        <form id="login" method="POST">
+        <h1> Everyday Be Nice</h1>
+          <label>
+        Username: <input type="text" name ="username" id ="username" required><br>
+         </label>
+            <label>
+        Password: <input type ="password" name="password" id ="password" required><br>
+            </label>
+               <label> 
+                <input type="submit" name="login" value="Login">
+                </label>
+                <button type="button" onclick="window.location.href='register.html'"> Create new account</button>
+                <p id="msg"></p>
+        </form>
+    </div>
+
+    <script>
+       /* const login = document.getElementById('login');
+        login.addEventListener("submit", (event)=>{
+                event.preventDefault();
+
+                const xhttp = new XMLHttpRequest();
+                const formdata = new FormData(login);
+                xhttp.onload = function(){
+
+                    const res = this.responseText.trim();
+
+                    if( res ==="success"){
+                        window.location.href="dashboard/dashboard.php";
+                    }
+                    else{
+                        document.getElementById("msg").innerHTML=this.responseText;
+                    }
+                }
+                
+                xhttp.open("POST", "login.php");
+                xhttp.send(formdata);
+        });
+        */
+
+        // Using Fetch
+
+        const login = document.getElementById("login");
+
+        login.addEventListener("submit",(event)=>{
+            event.preventDefault();
+
+            const formdata = new FormData(login);
+
+            fetch("login.php",
+                {method:"POST",
+                 body: formdata
+                }
+                 )
+
+            .then(response=>response.json())
+            .then(data => {
+            
+                if(data === "success"){
+                    window.location.href="dashboard/dashboard.php";
+                }
+                else{
+                    document.getElementById("msg").innerHTML=data.message;
+                    document.getElementById("msg").style.color="red";
+                }
+                          })
+            .catch(error=>{
+                console.error("Error",error);
+            })
+            });
+        
+    </script>
+</body>
+</html>
